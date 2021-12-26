@@ -1,69 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/logo_margin"
-        android:src="@drawable/ic_tmdb_logo_short"/>
+        android:layout_marginTop="@dimen/indent_64dp"
+        android:src="@drawable/ic_tmdb_logo_short" />
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_large"
-        android:layout_marginHorizontal="@dimen/margin_std"
-        android:layout_marginBottom="@dimen/margin_std"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:layout_marginHorizontal="@dimen/indent_16dp"
+        android:layout_marginTop="@dimen/indent_200dp"
+        android:layout_marginBottom="@dimen/indent_16dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_std"
-        android:layout_marginBottom="@dimen/margin_std"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginHorizontal="@dimen/indent_16dp"
+        android:layout_marginBottom="@dimen/indent_16dp"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/password"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_std"
-        android:layout_marginBottom="@dimen/margin_std"
         android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/indent_16dp"
+        android:layout_marginBottom="@dimen/indent_16dp"
         android:text="@string/forgot_password"
-        android:textColor="@color/primary"/>
+        android:textColor="@color/primary" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_std"
-        android:layout_marginBottom="@dimen/margin_std"
-        android:text="@string/login"/>
+        android:layout_marginHorizontal="@dimen/indent_16dp"
+        android:layout_marginBottom="@dimen/indent_16dp"
+        android:text="@string/login" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/sign_up"
-        android:textColor="@color/primary"/>
+        android:textColor="@color/primary" />
 
 </LinearLayout>

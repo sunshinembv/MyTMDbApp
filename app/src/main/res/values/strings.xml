@@ -5,4 +5,16 @@
     <string name="password">Password</string>
     <string name="sign_up">Sign up</string>
     <string name="forgot_password">Forgot password?</string>
+    <string name="tv_shows">TV Shows</string>
+    <string name="search">Search</string>
+    <string name="profile">Profile</string>
+    <string name="popular">Popular</string>
+    <string name="top_ratings">Top Rated</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="rating">%1$s%%</string>
+    <string name="cast">Cast</string>
+    <string name="recommendations">Recommendations</string>
+    <string name="celebrities">Celebrities</string>
+    <string name="image_url">https://image.tmdb.org/t/p/w500</string>
+    <string name="movies">Movies</string>
 </resources>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/movieBackdrop"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/backdrop_height"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_launcher_background" />
+
+            <ImageView
+                android:id="@+id/movieIcon"
+                android:layout_width="100dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="@dimen/indent_16dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="@id/contentBegin"
+                app:layout_constraintTop_toBottomOf="@id/movieBackdrop"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/movieTitle"
+                style="?attr/textAppearanceHeadline6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/indent_8dp"
+                android:layout_marginTop="@dimen/indent_16dp"
+                app:layout_constraintEnd_toEndOf="@id/contentEnd"
+                app:layout_constraintStart_toEndOf="@id/movieIcon"
+                app:layout_constraintTop_toBottomOf="@id/movieBackdrop" />
+
+            <TextView
+                android:id="@+id/movieGenre"
+                style="?attr/textAppearanceSubtitle2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/indent_8dp"
+                app:layout_constraintEnd_toEndOf="@id/contentEnd"
+                app:layout_constraintStart_toEndOf="@id/movieIcon"
+                app:layout_constraintTop_toBottomOf="@id/movieTitle" />
+
+            <TextView
+                android:id="@+id/movieOverview"
+                style="?attr/textAppearanceBody2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/indent_8dp"
+                app:layout_constraintEnd_toEndOf="@id/contentEnd"
+                app:layout_constraintStart_toEndOf="@id/movieIcon"
+                app:layout_constraintTop_toBottomOf="@id/movieGenre" />
+
+            <TextView
+                android:id="@+id/movieCast"
+                style="?attr/textAppearanceHeadline6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/cast"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/contentBegin"
+                app:layout_constraintTop_toBottomOf="@id/title_section_bottom_barrier" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/castRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movieCast" />
+
+            <TextView
+                android:id="@+id/movieRecommendations"
+                style="?attr/textAppearanceHeadline6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/recommendations"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/contentBegin"
+                app:layout_constraintTop_toBottomOf="@id/castRecyclerView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recommendationsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movieRecommendations" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/contentBegin"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/indent_16dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/contentEnd"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/indent_16dp" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/title_section_bottom_barrier"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="movieIcon, movieOverview" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/movieDetailedGroup"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:constraint_referenced_ids="movieBackdrop, movieIcon, movieTitle, movieGenre,
+            movieOverview, movieCast, castRecyclerView, movieRecommendations,
+            recommendationsRecyclerView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+</RelativeLayout>

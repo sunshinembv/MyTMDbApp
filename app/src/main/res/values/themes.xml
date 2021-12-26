@@ -12,5 +12,35 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="textAppearanceHeadline6">@style/TextAppearance.MyTMDbApp.Headline6</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.MyTMDbApp.Body2</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.MyTMDbApp.Subtitle2</item>
+        <item name="bottomNavigationStyle">@style/Widget.MyApp.BottomNavigationView.PrimarySurface
+        </item>
+    </style>
+
+    <style name="TextAppearance.MyTMDbApp.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextAppearance.MyTMDbApp.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.MyTMDbApp.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="Widget.MyApp.BottomNavigationView.PrimarySurface" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MyApp.BottomNavigationView</item>
+    </style>
+
+    <style name="ThemeOverlay.MyApp.BottomNavigationView" parent="">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/white</item>
     </style>
 </resources>

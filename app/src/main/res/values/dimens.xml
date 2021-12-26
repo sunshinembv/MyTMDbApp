@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="margin_std">16dp</dimen>
-    <dimen name="margin_large">200dp</dimen>
-    <dimen name="logo_margin">64dp</dimen>
+    <dimen name="indent_16dp">16dp</dimen>
+    <dimen name="indent_12dp">12dp</dimen>
+    <dimen name="indent_200dp">200dp</dimen>
+    <dimen name="indent_64dp">64dp</dimen>
+    <dimen name="movie_icon_width_150dp">150dp</dimen>
+    <dimen name="movie_icon_height_200dp">200dp</dimen>
+    <dimen name="indent_8dp">8dp</dimen>
+    <dimen name="indent_32dp">32dp</dimen>
+    <dimen name="backdrop_height">200dp</dimen>
+    <dimen name="movie_icon_width">120dp</dimen>
+    <dimen name="movie_icon_height">170dp</dimen>
+    <dimen name="width_120dp">120dp</dimen>
+    <dimen name="cast_avatar_size">64dp</dimen>
 </resources>

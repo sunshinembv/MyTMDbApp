@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/movieFragment">
+
+    <fragment
+        android:id="@+id/movieFragment"
+        android:name="com.example.mytmdbapp.presentation.movie.MovieFragment"
+        android:label="MovieFragment">
+        <action
+            android:id="@+id/action_movieFragment_to_movieDetailedFragment"
+            app:destination="@id/movieDetailedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tvShowsFragment"
+        android:name="com.example.mytmdbapp.presentation.tv_shows.TvShowsFragment"
+        android:label="TvShowsFragment" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.mytmdbapp.presentation.search.SearchFragment"
+        android:label="SearchFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.mytmdbapp.presentation.profile.ProfileFragment"
+        android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/movieDetailedFragment"
+        android:name="com.example.mytmdbapp.presentation.movie.MovieDetailedFragment"
+        android:label="MovieDetailedFragment">
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/celebritiesFragment"
+        android:name="com.example.mytmdbapp.presentation.celebrities.CelebritiesFragment"
+        android:label="CelebritiesFragment" />
+</navigation>
