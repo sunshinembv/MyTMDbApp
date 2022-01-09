@@ -1,22 +1,15 @@
 package com.example.mytmdbapp.presentation.movie
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.domain.usecases.movies.GetCreditsByMovieIdUseCase
-import com.example.domain.usecases.movies.GetDetailsByMovieIdUseCase
-import com.example.domain.usecases.movies.GetRecommendationsByMovieIdUseCase
+import androidx.lifecycle.*
+import com.example.domain.usecases.movies.*
 import com.example.mytmdbapp.presentation.movie.mappers.MovieDetailedMapper
 import com.example.mytmdbapp.presentation.movie.ui_model.MovieDetailedUIModel
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class MovieDetailedViewModel @Inject constructor(
+class MovieDetailedViewModel(
     private val movieDetailedMapper: MovieDetailedMapper,
     private val getDetailsByMovieIdUseCase: GetDetailsByMovieIdUseCase,
     private val getCreditsByMovieIdUseCase: GetCreditsByMovieIdUseCase,
@@ -56,6 +49,25 @@ class MovieDetailedViewModel @Inject constructor(
             } finally {
                 loadLiveData.postValue(false)
             }
+        }
+    }
+
+    class Factory @Inject constructor(
+        private val movieDetailedMapper: MovieDetailedMapper,
+        private val getDetailsByMovieIdUseCase: GetDetailsByMovieIdUseCase,
+        private val getCreditsByMovieIdUseCase: GetCreditsByMovieIdUseCase,
+        private val getRecommendationsByMovieIdUseCase: GetRecommendationsByMovieIdUseCase,
+    ) : ViewModelProvider.Factory {
+
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            require(modelClass == MovieDetailedViewModel::class.java)
+            return MovieDetailedViewModel(
+                movieDetailedMapper,
+                getDetailsByMovieIdUseCase,
+                getCreditsByMovieIdUseCase,
+                getRecommendationsByMovieIdUseCase
+            ) as T
         }
     }
 }

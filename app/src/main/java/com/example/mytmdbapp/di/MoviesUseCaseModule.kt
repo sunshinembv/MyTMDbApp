@@ -4,12 +4,9 @@ import com.example.domain.repository.MovieRepository
 import com.example.domain.usecases.movies.*
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
 
 @Module
-@InstallIn(ViewModelComponent::class)
-class DomainModule {
+class MoviesUseCaseModule {
 
     @Provides
     fun provideGetCreditsByMovieIdUseCase(movieRepository: MovieRepository): GetCreditsByMovieIdUseCase {

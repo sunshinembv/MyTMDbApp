@@ -1,5 +1,6 @@
 package com.example.mytmdbapp.presentation.movie
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -12,17 +13,28 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.mytmdbapp.R
 import com.example.mytmdbapp.databinding.FragmentCinemaBinding
 import com.example.mytmdbapp.presentation.adapter.CinemaAdapter
-import dagger.hilt.android.AndroidEntryPoint
+import com.example.mytmdbapp.utils.appComponent
+import javax.inject.Inject
 
-@AndroidEntryPoint
 class MovieFragment : Fragment(R.layout.fragment_cinema) {
 
     private val viewBinding by viewBinding(FragmentCinemaBinding::bind)
-    private val movieViewModel: MovieViewModel by viewModels()
+
+    @Inject
+    lateinit var movieViewModelFactory: MovieViewModel.Factory
+
+    private val movieViewModel: MovieViewModel by viewModels {
+        movieViewModelFactory
+    }
 
     private var popularAdapter: CinemaAdapter? = null
     private var topRatingsAdapter: CinemaAdapter? = null
     private var upcomingAdapter: CinemaAdapter? = null
+
+    override fun onAttach(context: Context) {
+        context.appComponent.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

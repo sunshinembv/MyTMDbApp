@@ -1,21 +1,16 @@
 package com.example.mytmdbapp.presentation.movie
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.domain.usecases.movies.GetPopularMovieListUseCase
 import com.example.domain.usecases.movies.GetTopRatingsMovieListUseCase
 import com.example.domain.usecases.movies.GetUpcomingMovieListUseCase
 import com.example.mytmdbapp.presentation.movie.mappers.MovieBasicInfoMapper
 import com.example.mytmdbapp.presentation.ui_model.CinemaUIModel
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
-@HiltViewModel
-class MovieViewModel @Inject constructor(
+class MovieViewModel(
     private val movieBasicInfoMapper: MovieBasicInfoMapper,
     private val getPopularMovieListUseCase: GetPopularMovieListUseCase,
     private val getTopRatingsMovieListUseCase: GetTopRatingsMovieListUseCase,
@@ -84,6 +79,25 @@ class MovieViewModel @Inject constructor(
             } finally {
                 loadLiveData.postValue(false)
             }
+        }
+    }
+
+    class Factory @Inject constructor(
+        private val movieBasicInfoMapper: MovieBasicInfoMapper,
+        private val getPopularMovieListUseCase: GetPopularMovieListUseCase,
+        private val getTopRatingsMovieListUseCase: GetTopRatingsMovieListUseCase,
+        private val getUpcomingMovieListUseCase: GetUpcomingMovieListUseCase,
+    ) : ViewModelProvider.Factory {
+
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            require(modelClass == MovieViewModel::class.java)
+            return MovieViewModel(
+                movieBasicInfoMapper,
+                getPopularMovieListUseCase,
+                getTopRatingsMovieListUseCase,
+                getUpcomingMovieListUseCase
+            ) as T
         }
     }
 
