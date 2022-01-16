@@ -1,6 +1,6 @@
 package com.example.mytmdbapp.presentation.movie.ui_model
 
-data class CreditsUIModel(
+data class CreditsUI(
     val id: String,
     val name: String,
     val role: String,

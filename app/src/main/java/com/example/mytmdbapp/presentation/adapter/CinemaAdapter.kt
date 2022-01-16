@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mytmdbapp.R
 import com.example.mytmdbapp.databinding.ItemCinemaBinding
-import com.example.mytmdbapp.presentation.ui_model.CinemaUIModel
+import com.example.mytmdbapp.presentation.movie.ui_model.CinemaItemUI
 
 class CinemaAdapter(private val movieDetailed: (id: Int) -> Unit) :
     RecyclerView.Adapter<CinemaAdapter.CinemaViewHolder>() {
@@ -32,8 +32,8 @@ class CinemaAdapter(private val movieDetailed: (id: Int) -> Unit) :
 
     override fun getItemCount(): Int = differ.currentList.size
 
-    fun updateCinemaList(newCinemaList: List<CinemaUIModel>) {
-        differ.submitList(newCinemaList)
+    fun updateCinemaList(newCinemaListUI: List<CinemaItemUI>) {
+        differ.submitList(newCinemaListUI)
     }
 
     class CinemaViewHolder(
@@ -52,29 +52,30 @@ class CinemaAdapter(private val movieDetailed: (id: Int) -> Unit) :
             }
         }
 
-        fun bind(cinemaUIModel: CinemaUIModel) {
-            id = cinemaUIModel.id
+        fun bind(cinemaItemUI: CinemaItemUI) {
+            id = cinemaItemUI.id
             with(itemCinemaBinding) {
-                movieTitle.text = cinemaUIModel.title
-                movieDate.text = cinemaUIModel.date
-                ratingItem.movieRatingProgress.progress = cinemaUIModel.rating
+                movieTitle.text = cinemaItemUI.title
+                movieDate.text = cinemaItemUI.date
+                ratingItem.movieRatingProgress.progress = cinemaItemUI.rating
                 ratingItem.movieRating.text =
-                    itemView.context.getString(R.string.rating, cinemaUIModel.rating.toString())
+                    itemView.context.getString(R.string.rating, cinemaItemUI.rating.toString())
 
-                Glide.with(itemView).load("${itemView.context.getString(R.string.image_url)}${cinemaUIModel.poster}")
+                Glide.with(itemView)
+                    .load("${itemView.context.getString(R.string.image_url)}${cinemaItemUI.poster}")
                     .placeholder(R.drawable.ic_downloading_24)
                     .error(R.drawable.ic_error_download_24).into(movieIcon)
             }
         }
     }
 
-    class CinemaDiffUtilCallback : DiffUtil.ItemCallback<CinemaUIModel>() {
-        override fun areItemsTheSame(oldItem: CinemaUIModel, newItem: CinemaUIModel): Boolean {
-            return oldItem.id == newItem.id
+    class CinemaDiffUtilCallback : DiffUtil.ItemCallback<CinemaItemUI>() {
+        override fun areItemsTheSame(oldItemUI: CinemaItemUI, newItemUI: CinemaItemUI): Boolean {
+            return oldItemUI.id == newItemUI.id
         }
 
-        override fun areContentsTheSame(oldItem: CinemaUIModel, newItem: CinemaUIModel): Boolean {
-            return oldItem == newItem
+        override fun areContentsTheSame(oldItemUI: CinemaItemUI, newItemUI: CinemaItemUI): Boolean {
+            return oldItemUI == newItemUI
         }
     }
 }

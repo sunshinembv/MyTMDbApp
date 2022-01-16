@@ -3,6 +3,7 @@ package com.example.mytmdbapp
 import android.app.Application
 import com.example.mytmdbapp.di.AppComponent
 import com.example.mytmdbapp.di.DaggerAppComponent
+import timber.log.Timber
 
 class MyTMDbApplication : Application() {
 
@@ -14,5 +15,9 @@ class MyTMDbApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         _appComponent = DaggerAppComponent.create()
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 }

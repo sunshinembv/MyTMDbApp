@@ -1,7 +1,7 @@
 package com.example.mytmdbapp.di
 
 import com.example.data.di.NetworkModule
-import com.example.mytmdbapp.presentation.movie.MovieDetailedFragment
+import com.example.mytmdbapp.presentation.movie.MovieDetailsFragment
 import com.example.mytmdbapp.presentation.movie.MovieFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -10,5 +10,5 @@ import javax.inject.Singleton
 @Singleton
 interface AppComponent {
     fun inject(movieFragment: MovieFragment)
-    fun inject(movieDetailedFragment: MovieDetailedFragment)
+    fun inject(movieDetailsFragment: MovieDetailsFragment)
 }

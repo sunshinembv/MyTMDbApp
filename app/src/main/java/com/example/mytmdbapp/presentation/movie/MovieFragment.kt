@@ -3,17 +3,26 @@ package com.example.mytmdbapp.presentation.movie
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.mytmdbapp.R
 import com.example.mytmdbapp.databinding.FragmentCinemaBinding
+import com.example.mytmdbapp.presentation.UIState
 import com.example.mytmdbapp.presentation.adapter.CinemaAdapter
+import com.example.mytmdbapp.presentation.movie.ui_model.MovieDataUI
 import com.example.mytmdbapp.utils.appComponent
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 class MovieFragment : Fragment(R.layout.fragment_cinema) {
@@ -71,7 +80,6 @@ class MovieFragment : Fragment(R.layout.fragment_cinema) {
         }
 
         bindViewModel()
-        movieViewModel.getMovies()
     }
 
     override fun onDestroyView() {
@@ -82,20 +90,24 @@ class MovieFragment : Fragment(R.layout.fragment_cinema) {
     }
 
     private fun bindViewModel() {
-        movieViewModel.popularMovies.observe(viewLifecycleOwner) {
-            popularAdapter?.updateCinemaList(it)
-        }
-
-        movieViewModel.topRatingsMovies.observe(viewLifecycleOwner) {
-            topRatingsAdapter?.updateCinemaList(it)
-        }
-
-        movieViewModel.upcomingMovies.observe(viewLifecycleOwner) {
-            upcomingAdapter?.updateCinemaList(it)
-        }
-
-        movieViewModel.isLoading.observe(viewLifecycleOwner) {
-            isLoading(it)
+        lifecycleScope.launch {
+            movieViewModel.movies.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { uiState ->
+                    when (uiState) {
+                        is UIState.Success<MovieDataUI> -> {
+                            viewVisibility(uiState)
+                            popularAdapter?.updateCinemaList(uiState.dataUI.moviesPopular)
+                            topRatingsAdapter?.updateCinemaList(uiState.dataUI.moviesTopRatings)
+                            upcomingAdapter?.updateCinemaList(uiState.dataUI.moviesUpcoming)
+                        }
+                        is UIState.Error -> {
+                            viewVisibility(uiState)
+                            Toast.makeText(requireContext(), uiState.message, Toast.LENGTH_LONG)
+                                .show()
+                        }
+                        is UIState.IsLoading -> viewVisibility(uiState)
+                    }
+                }
         }
     }
 
@@ -107,11 +119,12 @@ class MovieFragment : Fragment(R.layout.fragment_cinema) {
         )
     }
 
-    private fun isLoading(isLoading: Boolean) {
-        viewBinding.progressBar.isVisible = isLoading
-        viewBinding.popularTextView.isVisible = !isLoading
-        viewBinding.topRatingsTextView.isVisible = !isLoading
-        viewBinding.upcomingTextView.isVisible = !isLoading
-        viewBinding.moviesGroup.isVisible = !isLoading
+    private fun viewVisibility(uiState: UIState<MovieDataUI>) {
+        Timber.d(uiState.toString())
+        viewBinding.progressBar.isVisible = uiState is UIState.IsLoading
+        viewBinding.popularTextView.isVisible = uiState is UIState.Success
+        viewBinding.topRatingsTextView.isVisible = uiState is UIState.Success
+        viewBinding.upcomingTextView.isVisible = uiState is UIState.Success
+        viewBinding.moviesGroup.isVisible = uiState is UIState.Success
     }
 }

@@ -1,8 +1,6 @@
 package com.example.mytmdbapp.presentation.movie.ui_model
 
-import com.example.mytmdbapp.presentation.ui_model.CinemaUIModel
-
-data class MovieDetailedUIModel(
+data class MovieDetailsUI(
     val id: Int,
     val title: String,
     val date: String,
@@ -11,6 +9,6 @@ data class MovieDetailedUIModel(
     val bannerPath: String?,
     val genre: List<String>,
     val overView: String,
-    val credits: List<CreditsUIModel>,
-    val recommendations: List<CinemaUIModel>,
+    val credits: List<CreditsUI>,
+    val recommendations: List<CinemaItemUI>,
 )

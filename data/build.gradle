@@ -66,4 +66,6 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger2Version"
     kapt "com.google.dagger:dagger-compiler:$dagger2Version"
 
+    //Timber
+    implementation 'com.jakewharton.timber:timber:5.0.1'
 }

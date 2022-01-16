@@ -42,7 +42,6 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
-
     override suspend fun getDetailsByMovieId(id: Int): Details {
         return when (val result =
             networkHandleService.apiCall { api.getDetailsByMovieId(id, Keys.apiKey()) }) {

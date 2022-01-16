@@ -26,7 +26,7 @@
         android:label="ProfileFragment" />
     <fragment
         android:id="@+id/movieDetailedFragment"
-        android:name="com.example.mytmdbapp.presentation.movie.MovieDetailedFragment"
+        android:name="com.example.mytmdbapp.presentation.movie.MovieDetailsFragment"
         android:label="MovieDetailedFragment">
         <argument
             android:name="id"

@@ -8,22 +8,22 @@ import com.example.domain.models.show.Show
 import com.example.domain.usecases.tv_shows.GetPopularTvShowsListUseCase
 import com.example.domain.usecases.tv_shows.GetTopRatingsTvShowsListUseCase
 import com.example.domain.usecases.tv_shows.GetUpcomingTvShowsListUseCase
-import com.example.mytmdbapp.presentation.ui_model.CinemaUIModel
+import com.example.mytmdbapp.presentation.movie.ui_model.CinemaItemUI
 
 class TvShowsViewModel : ViewModel() {
 
     private val tvShowsRepositoryImpl = TvShowsRepositoryImpl()
 
-    private val tvShowsPopularLiveData = MutableLiveData<List<CinemaUIModel>>()
-    val popularTvShows: LiveData<List<CinemaUIModel>>
+    private val tvShowsPopularLiveData = MutableLiveData<List<CinemaItemUI>>()
+    val popularTvShows: LiveData<List<CinemaItemUI>>
         get() = tvShowsPopularLiveData
 
-    private val tvShowsTopRatingsLiveData = MutableLiveData<List<CinemaUIModel>>()
-    val topRatingsTvShows: LiveData<List<CinemaUIModel>>
+    private val tvShowsTopRatingsLiveData = MutableLiveData<List<CinemaItemUI>>()
+    val topRatingsTvShows: LiveData<List<CinemaItemUI>>
         get() = tvShowsTopRatingsLiveData
 
-    private val tvShowsUpcomingLiveData = MutableLiveData<List<CinemaUIModel>>()
-    val upcomingTvShows: LiveData<List<CinemaUIModel>>
+    private val tvShowsUpcomingLiveData = MutableLiveData<List<CinemaItemUI>>()
+    val upcomingTvShows: LiveData<List<CinemaItemUI>>
         get() = tvShowsUpcomingLiveData
 
     fun getPopularMovies() {
@@ -50,7 +50,7 @@ class TvShowsViewModel : ViewModel() {
         tvShowsUpcomingLiveData.postValue(cinema)
     }
 
-    private fun tvShowsToCinemaUIModel(tvShows: Show): CinemaUIModel {
-        return CinemaUIModel(1, tvShows.title, tvShows.date, 10, tvShows.posterPath)
+    private fun tvShowsToCinemaUIModel(tvShows: Show): CinemaItemUI {
+        return CinemaItemUI(1, tvShows.title, tvShows.date, 10, tvShows.posterPath)
     }
 }

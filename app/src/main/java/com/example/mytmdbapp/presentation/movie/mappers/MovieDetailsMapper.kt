@@ -3,21 +3,21 @@ package com.example.mytmdbapp.presentation.movie.mappers
 import com.example.domain.models.movie.Credits
 import com.example.domain.models.movie.Details
 import com.example.domain.models.movie.MovieBasicInfo
-import com.example.mytmdbapp.presentation.movie.ui_model.CreditsUIModel
-import com.example.mytmdbapp.presentation.movie.ui_model.MovieDetailedUIModel
-import com.example.mytmdbapp.presentation.ui_model.CinemaUIModel
+import com.example.mytmdbapp.presentation.movie.ui_model.CreditsUI
+import com.example.mytmdbapp.presentation.movie.ui_model.MovieDetailsUI
+import com.example.mytmdbapp.presentation.movie.ui_model.CinemaItemUI
 import javax.inject.Inject
 
-class MovieDetailedMapper @Inject constructor() {
+class MovieDetailsMapper @Inject constructor() {
 
     fun toMovieDetailedUIModel(
         details: Details,
         credits: Credits,
         recommendations: MovieBasicInfo
-    ): MovieDetailedUIModel {
+    ): MovieDetailsUI {
         val creditsUI = toUICredits(credits)
         val recommendationsUI = toCinemaUIModel(recommendations)
-        return MovieDetailedUIModel(
+        return MovieDetailsUI(
             details.id,
             details.title,
             details.releaseDate,
@@ -31,15 +31,15 @@ class MovieDetailedMapper @Inject constructor() {
         )
     }
 
-    private fun toUICredits(credits: Credits): List<CreditsUIModel> {
+    private fun toUICredits(credits: Credits): List<CreditsUI> {
         return credits.cast.map {
-            CreditsUIModel(it.id.toString(), it.name, it.character, it.profilePath)
+            CreditsUI(it.id.toString(), it.name, it.character, it.profilePath)
         }
     }
 
-    private fun toCinemaUIModel(movieBasicInfo: MovieBasicInfo): List<CinemaUIModel> {
+    private fun toCinemaUIModel(movieBasicInfo: MovieBasicInfo): List<CinemaItemUI> {
         return movieBasicInfo.movieBasicInfoResult.map {
-            CinemaUIModel(
+            CinemaItemUI(
                 it.id,
                 it.title,
                 it.releaseDate,

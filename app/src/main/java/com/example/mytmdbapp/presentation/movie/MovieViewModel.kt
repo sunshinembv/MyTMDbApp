@@ -1,13 +1,16 @@
 package com.example.mytmdbapp.presentation.movie
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.domain.usecases.movies.GetPopularMovieListUseCase
 import com.example.domain.usecases.movies.GetTopRatingsMovieListUseCase
 import com.example.domain.usecases.movies.GetUpcomingMovieListUseCase
+import com.example.mytmdbapp.presentation.UIState
 import com.example.mytmdbapp.presentation.movie.mappers.MovieBasicInfoMapper
-import com.example.mytmdbapp.presentation.ui_model.CinemaUIModel
+import com.example.mytmdbapp.presentation.movie.ui_model.MovieDataUI
+import com.example.mytmdbapp.presentation.movie.ui_model.CinemaItemUI
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class MovieViewModel(
@@ -17,68 +20,40 @@ class MovieViewModel(
     private val getUpcomingMovieListUseCase: GetUpcomingMovieListUseCase,
 ) : ViewModel() {
 
-    private val moviesPopularLiveData = MutableLiveData<List<CinemaUIModel>>()
-    val popularMovies: LiveData<List<CinemaUIModel>>
-        get() = moviesPopularLiveData
+    private val _movies = MutableStateFlow<UIState<MovieDataUI>>(UIState.IsLoading)
+    val movies: StateFlow<UIState<MovieDataUI>> = _movies.asStateFlow()
 
-    private val moviesTopRatingsLiveData = MutableLiveData<List<CinemaUIModel>>()
-    val topRatingsMovies: LiveData<List<CinemaUIModel>>
-        get() = moviesTopRatingsLiveData
-
-    private val moviesUpcomingLiveData = MutableLiveData<List<CinemaUIModel>>()
-    val upcomingMovies: LiveData<List<CinemaUIModel>>
-        get() = moviesUpcomingLiveData
-
-    private val loadLiveData = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean>
-        get() = loadLiveData
-
-    private suspend fun getPopularMovies(): List<CinemaUIModel> {
-        val moviesBasicInfo = getPopularMovieListUseCase.execute()
-        return moviesBasicInfo.movieBasicInfoResult.map {
-            movieBasicInfoMapper.toCinemaUIModel(it)
-        }
-    }
-
-    private suspend fun getTopRatingsMovies(): List<CinemaUIModel> {
-        val moviesBasicInfo = getTopRatingsMovieListUseCase.execute()
-        return moviesBasicInfo.movieBasicInfoResult.map {
-            movieBasicInfoMapper.toCinemaUIModel(it)
-        }
-    }
-
-    private suspend fun getUpcomingMovies(): List<CinemaUIModel> {
-        val moviesBasicInfo = getUpcomingMovieListUseCase.execute()
-        return moviesBasicInfo.movieBasicInfoResult.map {
-            movieBasicInfoMapper.toCinemaUIModel(it)
-        }
-    }
-
-    fun getMovies() {
+    init {
         viewModelScope.launch {
             try {
-                loadLiveData.postValue(true)
-                val deferredPopularMovies = async {
-                    getPopularMovies()
-                }
-                val deferredTopRatingsMovies = async {
-                    getTopRatingsMovies()
-                }
-                val deferredUpcomingMovies = async {
-                    getUpcomingMovies()
-                }
-                val popularMovies = deferredPopularMovies.await()
-                val topRatingsMovies = deferredTopRatingsMovies.await()
-                val upcomingMovies = deferredUpcomingMovies.await()
-                moviesPopularLiveData.postValue(popularMovies)
-                moviesTopRatingsLiveData.postValue(topRatingsMovies)
-                moviesUpcomingLiveData.postValue(upcomingMovies)
+                val popularMovies = getPopularMovies()
+                val topRatingsMovies = getTopRatingsMovies()
+                val upcomingMovies = getUpcomingMovies()
+                val movieDataUi = MovieDataUI(popularMovies, topRatingsMovies, upcomingMovies)
+                val uiState = UIState.Success(movieDataUi)
+                _movies.emit(uiState)
             } catch (t: Throwable) {
-                //TODO Доделать
-                Log.d("Error", t.toString())
-            } finally {
-                loadLiveData.postValue(false)
+                Timber.d(t)
+                _movies.emit(UIState.Error(t.message.toString()))
             }
+        }
+    }
+
+    private suspend fun getPopularMovies(): List<CinemaItemUI> {
+        return getPopularMovieListUseCase.execute().movieBasicInfoResult.map {
+            movieBasicInfoMapper.toCinemaItemUI(it)
+        }
+    }
+
+    private suspend fun getTopRatingsMovies(): List<CinemaItemUI> {
+        return getTopRatingsMovieListUseCase.execute().movieBasicInfoResult.map {
+            movieBasicInfoMapper.toCinemaItemUI(it)
+        }
+    }
+
+    private suspend fun getUpcomingMovies(): List<CinemaItemUI> {
+        return getUpcomingMovieListUseCase.execute().movieBasicInfoResult.map {
+            movieBasicInfoMapper.toCinemaItemUI(it)
         }
     }
 

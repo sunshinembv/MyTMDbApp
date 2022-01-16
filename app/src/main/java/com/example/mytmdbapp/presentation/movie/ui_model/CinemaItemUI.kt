@@ -1,6 +1,6 @@
-package com.example.mytmdbapp.presentation.ui_model
+package com.example.mytmdbapp.presentation.movie.ui_model
 
-data class CinemaUIModel(
+data class CinemaItemUI(
     val id: Int,
     val title: String,
     val date: String,

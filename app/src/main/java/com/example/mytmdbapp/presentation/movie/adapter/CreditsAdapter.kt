@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.mytmdbapp.R
 import com.example.mytmdbapp.databinding.ItemCreditsBinding
-import com.example.mytmdbapp.presentation.movie.ui_model.CreditsUIModel
+import com.example.mytmdbapp.presentation.movie.ui_model.CreditsUI
 
 class CreditsAdapter : RecyclerView.Adapter<CreditsAdapter.CreditsViewHolder>() {
 
@@ -31,31 +31,32 @@ class CreditsAdapter : RecyclerView.Adapter<CreditsAdapter.CreditsViewHolder>() 
 
     override fun getItemCount(): Int = differ.currentList.size
 
-    fun updateCreditsList(newCreditsList: List<CreditsUIModel>) {
+    fun updateCreditsList(newCreditsList: List<CreditsUI>) {
         differ.submitList(newCreditsList)
     }
 
     class CreditsViewHolder(private val itemCreditsBinding: ItemCreditsBinding) :
         RecyclerView.ViewHolder(itemCreditsBinding.root) {
 
-        fun bind(creditsUIModel: CreditsUIModel) {
+        fun bind(creditsUI: CreditsUI) {
             with(itemCreditsBinding) {
-                castName.text = creditsUIModel.name
-                castRole.text = creditsUIModel.role
+                castName.text = creditsUI.name
+                castRole.text = creditsUI.role
 
-                Glide.with(itemView).load("${itemView.context.getString(R.string.image_url)}${creditsUIModel.avatar}")
+                Glide.with(itemView)
+                    .load("${itemView.context.getString(R.string.image_url)}${creditsUI.avatar}")
                     .placeholder(R.drawable.ic_downloading_24)
                     .error(R.drawable.ic_error_download_24).transform(CircleCrop()).into(castAvatar)
             }
         }
     }
 
-    class CreditsDiffUtilCallback : DiffUtil.ItemCallback<CreditsUIModel>() {
-        override fun areItemsTheSame(oldItem: CreditsUIModel, newItem: CreditsUIModel): Boolean {
+    class CreditsDiffUtilCallback : DiffUtil.ItemCallback<CreditsUI>() {
+        override fun areItemsTheSame(oldItem: CreditsUI, newItem: CreditsUI): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: CreditsUIModel, newItem: CreditsUIModel): Boolean {
+        override fun areContentsTheSame(oldItem: CreditsUI, newItem: CreditsUI): Boolean {
             return oldItem == newItem
         }
 
