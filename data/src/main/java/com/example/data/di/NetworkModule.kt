@@ -1,6 +1,7 @@
 package com.example.data.di
 
 import com.example.data.network.Api
+import com.example.data.network.Keys
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -17,7 +18,17 @@ class NetworkModule {
     @Singleton
     fun provideApi(): Api {
         val okHttpClient = OkHttpClient.Builder()
-            .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addNetworkInterceptor(
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            ).addNetworkInterceptor { chain ->
+                val originalRequest = chain.request()
+                val modifiedUrl = originalRequest.url
+                    .newBuilder()
+                    .addQueryParameter(QUERY_PARAMETER_API_KEY, Keys.apiKey())
+                    .build()
+                val modifiedRequest = originalRequest.newBuilder().url(modifiedUrl).build()
+                chain.proceed(modifiedRequest)
+            }
             .build()
 
         val retrofit =
@@ -28,6 +39,7 @@ class NetworkModule {
     }
 
     companion object {
-        const val BASE_URL = "https://api.themoviedb.org/"
+        private const val BASE_URL = "https://api.themoviedb.org/"
+        private const val QUERY_PARAMETER_API_KEY = "api_key"
     }
 }

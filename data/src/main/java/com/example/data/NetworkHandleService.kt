@@ -8,7 +8,15 @@ import javax.inject.Inject
 
 class NetworkHandleService @Inject constructor() {
 
-    suspend fun <T : Any> apiCall(call: suspend () -> Response<T>): Result<T> {
+    suspend fun <T : Any> apiCall(call: suspend () -> Response<T>): T {
+        return when (val result = checkResponseStatus(call)) {
+            is Result.Success -> result.data
+            is Result.Error -> error(result.error)
+            else -> error("Некорректное состояние")
+        }
+    }
+
+    private suspend fun <T : Any> checkResponseStatus(call: suspend () -> Response<T>): Result<T> {
         var response: Response<T>? = null
         var body: T? = null
         var errorBody: ResponseBody? = null
