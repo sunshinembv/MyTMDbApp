@@ -5,7 +5,7 @@ import com.example.domain.usecases.movies.GetCreditsByMovieIdUseCase
 import com.example.domain.usecases.movies.GetDetailsByMovieIdUseCase
 import com.example.domain.usecases.movies.GetPopularMovieListUseCase
 import com.example.domain.usecases.movies.GetRecommendationsByMovieIdUseCase
-import com.example.domain.usecases.movies.GetTopRatingsMovieListUseCase
+import com.example.domain.usecases.movies.GetTopRatedMovieListUseCase
 import com.example.domain.usecases.movies.GetUpcomingMovieListUseCase
 import dagger.Module
 import dagger.Provides
@@ -42,10 +42,10 @@ class MoviesUseCaseModule {
     }
 
     @Provides
-    fun provideGetTopRatingsMovieListUseCase(movieRepository: MovieRepository):
-        GetTopRatingsMovieListUseCase {
+    fun provideGetTopRatedMovieListUseCase(movieRepository: MovieRepository):
+        GetTopRatedMovieListUseCase {
 
-        return GetTopRatingsMovieListUseCase(movieRepository)
+        return GetTopRatedMovieListUseCase(movieRepository)
     }
 
     @Provides

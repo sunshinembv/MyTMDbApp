@@ -36,7 +36,7 @@ class TvShowsFragment : Fragment(R.layout.fragment_cinema) {
             }
         }
 
-        with(viewBinding.topRatingsRecyclerView) {
+        with(viewBinding.topRatedRecyclerView) {
             adapter = topRatingsAdapter
             layoutManager = LinearLayoutManager(requireContext()).apply {
                 orientation = RecyclerView.HORIZONTAL

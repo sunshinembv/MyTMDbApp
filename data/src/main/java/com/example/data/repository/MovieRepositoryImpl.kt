@@ -26,7 +26,7 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getTopRatingsMovies(): MovieBasicInfo {
+    override suspend fun getTopRatedMovies(): MovieBasicInfo {
         return when (
             val result =
                 networkHandleService.apiCall { api.getTopRatedMovies(Keys.apiKey()) }

@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/topRatingsTextView"
+                android:id="@+id/topRatedTextView"
                 style="?attr/textAppearanceHeadline6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
                 android:text="@string/top_ratings" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/topRatingsRecyclerView"
+                android:id="@+id/topRatedRecyclerView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:constraint_referenced_ids="popularRecyclerView,
-            topRatingsRecyclerView, upcomingRecyclerView" />
+            topRatedRecyclerView, upcomingRecyclerView" />
         </LinearLayout>
     </ScrollView>
 

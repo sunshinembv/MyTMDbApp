@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.movies.GetPopularMovieListUseCase
-import com.example.domain.usecases.movies.GetTopRatingsMovieListUseCase
+import com.example.domain.usecases.movies.GetTopRatedMovieListUseCase
 import com.example.domain.usecases.movies.GetUpcomingMovieListUseCase
 import com.example.mytmdbapp.presentation.UIState
 import com.example.mytmdbapp.presentation.movie.mappers.MovieBasicInfoMapper
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class MovieViewModel(
     private val movieBasicInfoMapper: MovieBasicInfoMapper,
     private val getPopularMovieListUseCase: GetPopularMovieListUseCase,
-    private val getTopRatingsMovieListUseCase: GetTopRatingsMovieListUseCase,
+    private val getTopRatedMovieListUseCase: GetTopRatedMovieListUseCase,
     private val getUpcomingMovieListUseCase: GetUpcomingMovieListUseCase,
 ) : ViewModel() {
 
@@ -31,9 +31,9 @@ class MovieViewModel(
         viewModelScope.launch {
             try {
                 val popularMovies = getPopularMovies()
-                val topRatingsMovies = getTopRatingsMovies()
+                val topRatedMovies = getTopRatedMovies()
                 val upcomingMovies = getUpcomingMovies()
-                val movieDataUi = MovieDataUI(popularMovies, topRatingsMovies, upcomingMovies)
+                val movieDataUi = MovieDataUI(popularMovies, topRatedMovies, upcomingMovies)
                 val uiState = UIState.Success(movieDataUi)
                 _movies.emit(uiState)
             } catch (t: Throwable) {
@@ -49,8 +49,8 @@ class MovieViewModel(
         }
     }
 
-    private suspend fun getTopRatingsMovies(): List<CinemaItemUI> {
-        return getTopRatingsMovieListUseCase.execute().movieBasicInfoResult.map {
+    private suspend fun getTopRatedMovies(): List<CinemaItemUI> {
+        return getTopRatedMovieListUseCase.execute().movieBasicInfoResult.map {
             movieBasicInfoMapper.toCinemaItemUI(it)
         }
     }
@@ -64,7 +64,7 @@ class MovieViewModel(
     class Factory @Inject constructor(
         private val movieBasicInfoMapper: MovieBasicInfoMapper,
         private val getPopularMovieListUseCase: GetPopularMovieListUseCase,
-        private val getTopRatingsMovieListUseCase: GetTopRatingsMovieListUseCase,
+        private val getTopRatedMovieListUseCase: GetTopRatedMovieListUseCase,
         private val getUpcomingMovieListUseCase: GetUpcomingMovieListUseCase,
     ) : ViewModelProvider.Factory {
 
@@ -74,7 +74,7 @@ class MovieViewModel(
             return MovieViewModel(
                 movieBasicInfoMapper,
                 getPopularMovieListUseCase,
-                getTopRatingsMovieListUseCase,
+                getTopRatedMovieListUseCase,
                 getUpcomingMovieListUseCase
             ) as T
         }

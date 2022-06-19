@@ -36,7 +36,7 @@ class MovieFragment : Fragment(R.layout.fragment_cinema) {
     }
 
     private var popularAdapter: CinemaAdapter? = null
-    private var topRatingsAdapter: CinemaAdapter? = null
+    private var topRatedAdapter: CinemaAdapter? = null
     private var upcomingAdapter: CinemaAdapter? = null
 
     override fun onAttach(context: Context) {
@@ -50,7 +50,7 @@ class MovieFragment : Fragment(R.layout.fragment_cinema) {
         popularAdapter = CinemaAdapter { id ->
             openMovieDetailed(id)
         }
-        topRatingsAdapter = CinemaAdapter { id ->
+        topRatedAdapter = CinemaAdapter { id ->
             openMovieDetailed(id)
         }
         upcomingAdapter = CinemaAdapter { id ->
@@ -64,8 +64,8 @@ class MovieFragment : Fragment(R.layout.fragment_cinema) {
             }
         }
 
-        with(viewBinding.topRatingsRecyclerView) {
-            adapter = topRatingsAdapter
+        with(viewBinding.topRatedRecyclerView) {
+            adapter = topRatedAdapter
             layoutManager = LinearLayoutManager(requireContext()).apply {
                 orientation = RecyclerView.HORIZONTAL
             }
@@ -84,7 +84,7 @@ class MovieFragment : Fragment(R.layout.fragment_cinema) {
     override fun onDestroyView() {
         super.onDestroyView()
         popularAdapter = null
-        topRatingsAdapter = null
+        topRatedAdapter = null
         upcomingAdapter = null
     }
 
@@ -96,7 +96,7 @@ class MovieFragment : Fragment(R.layout.fragment_cinema) {
                         is UIState.Success<MovieDataUI> -> {
                             viewVisibility(uiState)
                             popularAdapter?.updateCinemaList(uiState.dataUI.moviesPopular)
-                            topRatingsAdapter?.updateCinemaList(uiState.dataUI.moviesTopRatings)
+                            topRatedAdapter?.updateCinemaList(uiState.dataUI.moviesTopRated)
                             upcomingAdapter?.updateCinemaList(uiState.dataUI.moviesUpcoming)
                         }
                         is UIState.Error -> {
@@ -122,7 +122,7 @@ class MovieFragment : Fragment(R.layout.fragment_cinema) {
         Timber.d(uiState.toString())
         viewBinding.progressBar.isVisible = uiState is UIState.IsLoading
         viewBinding.popularTextView.isVisible = uiState is UIState.Success
-        viewBinding.topRatingsTextView.isVisible = uiState is UIState.Success
+        viewBinding.topRatedTextView.isVisible = uiState is UIState.Success
         viewBinding.upcomingTextView.isVisible = uiState is UIState.Success
         viewBinding.moviesGroup.isVisible = uiState is UIState.Success
     }
