@@ -23,13 +23,10 @@ class TvShowsFragment : Fragment(R.layout.fragment_cinema) {
         super.onViewCreated(view, savedInstanceState)
 
         popularAdapter = CinemaAdapter {
-
         }
         topRatingsAdapter = CinemaAdapter {
-
         }
         upcomingAdapter = CinemaAdapter {
-
         }
 
         with(viewBinding.popularRecyclerView) {

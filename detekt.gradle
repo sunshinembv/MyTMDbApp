@@ -1,0 +1,37 @@
+import io.gitlab.arturbosch.detekt.Detekt
+import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
+
+apply plugin: "io.gitlab.arturbosch.detekt"
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.21.0-RC1"
+    }
+}
+
+detekt {
+    config = files("$rootDir/config/detekt.yml")
+    baseline = file("$rootDir/config/baseline.xml")
+    buildUponDefaultConfig = true
+    allRules = false
+    parallel = true
+    ignoreFailures = false
+    autoCorrect = true
+}
+
+tasks.withType(Detekt).configureEach {
+    jvmTarget = "1.8"
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+        txt.required.set(true)
+        sarif.required.set(true)
+    }
+}
+
+tasks.withType(DetektCreateBaselineTask).configureEach {
+    jvmTarget = "1.8"
+}

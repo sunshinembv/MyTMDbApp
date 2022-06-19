@@ -59,6 +59,5 @@ class CreditsAdapter : RecyclerView.Adapter<CreditsAdapter.CreditsViewHolder>() 
         override fun areContentsTheSame(oldItem: CreditsUI, newItem: CreditsUI): Boolean {
             return oldItem == newItem
         }
-
     }
 }

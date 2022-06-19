@@ -22,7 +22,6 @@ import com.example.mytmdbapp.presentation.adapter.CinemaAdapter
 import com.example.mytmdbapp.presentation.movie.adapter.CreditsAdapter
 import com.example.mytmdbapp.presentation.movie.ui_model.MovieDetailsUI
 import com.example.mytmdbapp.utils.appComponent
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -99,8 +98,10 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_detailed) {
     private fun setData(movieDetailsUI: MovieDetailsUI) {
         with(viewBinding) {
             movieTitle.text = movieDetailsUI.title
-            movieGenre.text =
-                movieDetailsUI.genre.toString().replace("[", "").replace("]", "");
+            movieGenre.text = movieDetailsUI.genre
+                .toString()
+                .replace("[", "")
+                .replace("]", "")
             movieOverview.text = movieDetailsUI.overView
             creditsAdapter?.updateCreditsList(movieDetailsUI.credits)
             cinemaAdapter?.updateCinemaList(movieDetailsUI.recommendations)

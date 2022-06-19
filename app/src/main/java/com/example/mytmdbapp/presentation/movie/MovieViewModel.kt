@@ -1,15 +1,19 @@
 package com.example.mytmdbapp.presentation.movie
 
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.movies.GetPopularMovieListUseCase
 import com.example.domain.usecases.movies.GetTopRatingsMovieListUseCase
 import com.example.domain.usecases.movies.GetUpcomingMovieListUseCase
 import com.example.mytmdbapp.presentation.UIState
 import com.example.mytmdbapp.presentation.movie.mappers.MovieBasicInfoMapper
-import com.example.mytmdbapp.presentation.movie.ui_model.MovieDataUI
 import com.example.mytmdbapp.presentation.movie.ui_model.CinemaItemUI
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import com.example.mytmdbapp.presentation.movie.ui_model.MovieDataUI
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -65,7 +69,7 @@ class MovieViewModel(
     ) : ViewModelProvider.Factory {
 
         @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             require(modelClass == MovieViewModel::class.java)
             return MovieViewModel(
                 movieBasicInfoMapper,
@@ -75,5 +79,4 @@ class MovieViewModel(
             ) as T
         }
     }
-
 }

@@ -1,7 +1,11 @@
 package com.example.mytmdbapp.presentation.movie
 
-import androidx.lifecycle.*
-import com.example.domain.usecases.movies.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.example.domain.usecases.movies.GetCreditsByMovieIdUseCase
+import com.example.domain.usecases.movies.GetDetailsByMovieIdUseCase
+import com.example.domain.usecases.movies.GetRecommendationsByMovieIdUseCase
 import com.example.mytmdbapp.presentation.UIState
 import com.example.mytmdbapp.presentation.movie.mappers.MovieDetailsMapper
 import com.example.mytmdbapp.presentation.movie.ui_model.MovieDetailsUI
@@ -46,7 +50,7 @@ class MovieDetailsViewModel(
     ) : ViewModelProvider.Factory {
 
         @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             require(modelClass == MovieDetailsViewModel::class.java)
             return MovieDetailsViewModel(
                 movieDetailsMapper,

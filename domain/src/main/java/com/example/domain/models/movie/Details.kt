@@ -17,4 +17,3 @@ interface Genre {
     val id: Int
     val name: String
 }
-

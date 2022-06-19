@@ -3,9 +3,10 @@ package com.example.mytmdbapp.presentation.movie.mappers
 import com.example.domain.models.movie.Credits
 import com.example.domain.models.movie.Details
 import com.example.domain.models.movie.MovieBasicInfo
+import com.example.mytmdbapp.presentation.movie.ui_model.CinemaItemUI
 import com.example.mytmdbapp.presentation.movie.ui_model.CreditsUI
 import com.example.mytmdbapp.presentation.movie.ui_model.MovieDetailsUI
-import com.example.mytmdbapp.presentation.movie.ui_model.CinemaItemUI
+import com.example.mytmdbapp.utils.toPercent
 import javax.inject.Inject
 
 class MovieDetailsMapper @Inject constructor() {
@@ -21,7 +22,7 @@ class MovieDetailsMapper @Inject constructor() {
             details.id,
             details.title,
             details.releaseDate,
-            (details.voteAverage * 10).toInt(),
+            details.voteAverage.toPercent(),
             details.posterPath,
             details.backdropPath,
             details.genres.map { it.name },
@@ -43,7 +44,7 @@ class MovieDetailsMapper @Inject constructor() {
                 it.id,
                 it.title,
                 it.releaseDate,
-                (it.voteAverage * 10).toInt(),
+                it.voteAverage.toPercent(),
                 it.posterPath
             )
         }

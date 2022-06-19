@@ -1,13 +1,16 @@
 root = true
 
 [*]
-charset = utf-8
-end_of_line = crlf
-indent_size = 4
-indent_style = space
-insert_final_newline = false
-max_line_length = 100
-tab_width = 4
+insert_final_newline = true
 
-[{*.yaml,*.yml}]
+[*.{kt, groovy}]
+indent_style = space
+indent_size = 4
+
+[*.yml]
+indent_style = space
 indent_size = 2
+
+[*.md]
+indent_style = space
+indent_size = 4

@@ -1,7 +1,12 @@
 package com.example.mytmdbapp.di
 
 import com.example.domain.repository.MovieRepository
-import com.example.domain.usecases.movies.*
+import com.example.domain.usecases.movies.GetCreditsByMovieIdUseCase
+import com.example.domain.usecases.movies.GetDetailsByMovieIdUseCase
+import com.example.domain.usecases.movies.GetPopularMovieListUseCase
+import com.example.domain.usecases.movies.GetRecommendationsByMovieIdUseCase
+import com.example.domain.usecases.movies.GetTopRatingsMovieListUseCase
+import com.example.domain.usecases.movies.GetUpcomingMovieListUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -9,32 +14,44 @@ import dagger.Provides
 class MoviesUseCaseModule {
 
     @Provides
-    fun provideGetCreditsByMovieIdUseCase(movieRepository: MovieRepository): GetCreditsByMovieIdUseCase {
+    fun provideGetCreditsByMovieIdUseCase(movieRepository: MovieRepository):
+        GetCreditsByMovieIdUseCase {
+
         return GetCreditsByMovieIdUseCase(movieRepository)
     }
 
     @Provides
-    fun provideGetDetailsByMovieIdUseCase(movieRepository: MovieRepository): GetDetailsByMovieIdUseCase {
+    fun provideGetDetailsByMovieIdUseCase(movieRepository: MovieRepository):
+        GetDetailsByMovieIdUseCase {
+
         return GetDetailsByMovieIdUseCase(movieRepository)
     }
 
     @Provides
-    fun provideGetPopularMovieListUseCase(movieRepository: MovieRepository): GetPopularMovieListUseCase {
+    fun provideGetPopularMovieListUseCase(movieRepository: MovieRepository):
+        GetPopularMovieListUseCase {
+
         return GetPopularMovieListUseCase(movieRepository)
     }
 
     @Provides
-    fun provideGetRecommendationsByMovieIdUseCase(movieRepository: MovieRepository): GetRecommendationsByMovieIdUseCase {
+    fun provideGetRecommendationsByMovieIdUseCase(movieRepository: MovieRepository):
+        GetRecommendationsByMovieIdUseCase {
+
         return GetRecommendationsByMovieIdUseCase(movieRepository)
     }
 
     @Provides
-    fun provideGetTopRatingsMovieListUseCase(movieRepository: MovieRepository): GetTopRatingsMovieListUseCase {
+    fun provideGetTopRatingsMovieListUseCase(movieRepository: MovieRepository):
+        GetTopRatingsMovieListUseCase {
+
         return GetTopRatingsMovieListUseCase(movieRepository)
     }
 
     @Provides
-    fun provideGetUpcomingMovieListUseCase(movieRepository: MovieRepository): GetUpcomingMovieListUseCase {
+    fun provideGetUpcomingMovieListUseCase(movieRepository: MovieRepository):
+        GetUpcomingMovieListUseCase {
+
         return GetUpcomingMovieListUseCase(movieRepository)
     }
 }

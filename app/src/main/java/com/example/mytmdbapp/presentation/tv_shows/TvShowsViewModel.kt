@@ -51,6 +51,6 @@ class TvShowsViewModel : ViewModel() {
     }
 
     private fun tvShowsToCinemaUIModel(tvShows: Show): CinemaItemUI {
-        return CinemaItemUI(1, tvShows.title, tvShows.date, 10, tvShows.posterPath)
+        return CinemaItemUI(1, tvShows.title, tvShows.date, 1, tvShows.posterPath)
     }
 }

@@ -20,7 +20,6 @@ import com.example.mytmdbapp.presentation.UIState
 import com.example.mytmdbapp.presentation.adapter.CinemaAdapter
 import com.example.mytmdbapp.presentation.movie.ui_model.MovieDataUI
 import com.example.mytmdbapp.utils.appComponent
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
